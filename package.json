@@ -1,0 +1,25 @@
+{
+  "name": "react-validator-form-dev",
+  "version": "1.0.0",
+  "description": "react-validator-form-dev package",
+  "main": "./dist/index.js",
+  "repository": "https://github.com/jindra12/react-validator-form.git",
+  "author": "Jan Jindráček",
+  "license": "MIT",
+  "scripts": {
+    "build": "rm ./dist/index.js ./dist/index.d.ts ./dist/components/* ./dist/utils/* ./dist/types.d.ts ./dist/types.js; yarn tsc",
+    "test": "yarn jest --watch"
+  },
+  "devDependencies": {
+    "@types/node-fetch": "^2.5.7",
+    "@types/react-dom": "^16.9.8",
+    "tslint": "^6.1.2",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "forecast-query": "^1.2.1",
+    "react": "^16.13.1",
+    "react-charts": "^2.0.0-beta.7",
+    "react-dom": "^16.13.1"
+  }
+}

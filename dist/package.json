@@ -1,0 +1,22 @@
+{
+  "name": "react-validator-form",
+  "version": "0.0.1",
+  "description": "React form with validation. Can be used with simple <input>,  <select> etc., or with provided components",
+  "main": "index.js",
+  "repository": "https://github.com/jindra12/react-weather-forecast.git",
+  "author": "Jan Jindráček",
+  "license": "MIT",
+  "man": ["./README.md"],
+  "keywords": ["react", "form", "valid", "validate",
+    "validator", "is valid", "check", "component",
+    "input", "checkbox", "select", "validation", "business",
+    "simple", "utility", "util", "checking", "invalid", "invalidate"],
+  "peerDependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
+}
