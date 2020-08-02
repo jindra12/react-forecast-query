@@ -81,6 +81,10 @@ List of information is derived from ".list()" function in forecast-query.
 
 Added error component
 
+## Changes since 0.1.1
+
+Fix error component error reporting
+
 ## More information
 
 For more information about weather prediction from open weather api please visit: https://www.npmjs.com/package/forecast-query

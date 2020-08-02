@@ -42,7 +42,16 @@ class ForecastEnhancer extends React.Component<ForecastEnhancerProps, ForecastEn
         super(props);
         this.forecast = forecast(props.apiKey, props.isPro);
         this.forecast.store(props.storage, props.expire);
-        this.forecast.error(error => this.setState({ error }));
+        this.forecast.error(async error => {
+            if(!this.state.error) {
+                try {
+                    const json = await error.json();
+                    this.setState({ error: json });
+                } catch {
+                    this.setState({ error });
+                }
+            } 
+        });
     }
     public async componentDidMount() {
         const { props } = this;
@@ -120,13 +129,16 @@ class ForecastEnhancer extends React.Component<ForecastEnhancerProps, ForecastEn
         && a.reduce((p: boolean, c, i) => !p ? false : c === b[i], true);
 
     private resolveQuery = async () => {
-        const { props } = this;
+        const { props, state } = this;
         this.setState({ loading: true, error: null });
         const acc: ForecastResults = {};
         const list = this.forecast.list(props.by);
         for (let i = 0; i < props.query.length; i++) {
             const item = props.query[i];
             acc[item] = await list[item]() as any;
+            if (state.error) {
+                break;
+            }
         }
         this.setState({ loading: false, error: null, results: acc });
     }
