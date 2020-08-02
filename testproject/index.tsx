@@ -28,6 +28,7 @@ class TestWeather extends React.Component<{}, State> {
                         query={['clouds', 'cloudy']}
                         by="hour"
                         loadingComponent={() => <div>Loading...</div>}
+                        errorComponent={props => <div>Error: {JSON.stringify(props.error)}</div>}
                         setup={forecast => forecast
                             .at(today, fourDaysFromNow)
                             .around(50.08804, 14.42076)

@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
-import { InjectedForecastResults } from 'react-forecast-query';
-import weatherEnhancer from "react-forecast-query/components/ForecastEnhancer";
+import { InjectedForecastResults } from "react-forecast-query";
+import weatherEnhancer from "react-forecast-query";
 
 export interface WeatherDisplayProps {
     label: string;

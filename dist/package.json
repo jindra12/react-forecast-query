@@ -1,22 +1,53 @@
 {
-  "name": "react-validator-form",
-  "version": "0.0.1",
-  "description": "React form with validation. Can be used with simple <input>,  <select> etc., or with provided components",
+  "name": "react-forecast-query",
+  "version": "0.1.0",
+  "description": "Higher order React component delivering weather information from open weather api. Wrapper for forecast-query package.",
   "main": "index.js",
-  "repository": "https://github.com/jindra12/react-weather-forecast.git",
+  "repository": "https://github.com/jindra12/react-forecast-query.git",
   "author": "Jan Jindráček",
   "license": "MIT",
-  "man": ["./README.md"],
-  "keywords": ["react", "form", "valid", "validate",
-    "validator", "is valid", "check", "component",
-    "input", "checkbox", "select", "validation", "business",
-    "simple", "utility", "util", "checking", "invalid", "invalidate"],
+  "man": [
+    "./README.md"
+  ],
+  "keywords": [
+    "openweather",
+    "open weather",
+    "open weather api",
+    "openweatherapi",
+    "react",
+    "React",
+    "component",
+    "typed",
+    "forecast",
+    "weather",
+    "prediction",
+    "weather prediction",
+    "forecast weather",
+    "openweathermap",
+    "openweathermap api",
+    "typescript",
+    "query",
+    "queryable",
+    "rain",
+    "sun",
+    "rainy",
+    "sunny",
+    "cloud",
+    "clouds",
+    "cloudy",
+    "storm",
+    "stormy",
+    "sunny weather",
+    "rainy weather",
+    "cloudy weather",
+    "stormy weather"
+  ],
   "peerDependencies": {
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
   "dependencies": {
+    "forecast-query": "^1.2.1"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }

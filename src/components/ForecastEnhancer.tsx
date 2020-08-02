@@ -16,16 +16,11 @@ export interface InjectedForecastProps {
     by?: 'day' | 'hour',
     setup?: (forecast: Forecast) => void,
     loadingComponent?: () => JSX.Element | null,
+    errorComponent?: (props: { error: any }) => JSX.Element | null
 }
 
-interface ForecastEnhancerProps {
-    apiKey: string;
-    isPro?: boolean;
-    by?: 'day' | 'hour';
-    query: Array<keyof ForecastList>;
-    setup?: (forecast: Forecast) => void; 
+interface ForecastEnhancerProps extends InjectedForecastProps {
     children: (props: ForecastResults, forecast: Forecast) => JSX.Element | null;
-    loadingComponent?: () => JSX.Element | null;
     storage: Storage,
     expire?: number | 'never';
 }
@@ -33,6 +28,7 @@ interface ForecastEnhancerProps {
 interface ForecastEnhancerState {
     loading: boolean;
     results: ForecastResults | null;
+    error: any | null;
 }
 
 class ForecastEnhancer extends React.Component<ForecastEnhancerProps, ForecastEnhancerState> {
@@ -40,11 +36,13 @@ class ForecastEnhancer extends React.Component<ForecastEnhancerProps, ForecastEn
     state: ForecastEnhancerState = {
         loading: false,
         results: null,
+        error: null,
     };
     constructor(props: ForecastEnhancerProps) {
         super(props);
         this.forecast = forecast(props.apiKey, props.isPro);
         this.forecast.store(props.storage, props.expire);
+        this.forecast.error(error => this.setState({ error }));
     }
     public async componentDidMount() {
         const { props } = this;
@@ -72,11 +70,22 @@ class ForecastEnhancer extends React.Component<ForecastEnhancerProps, ForecastEn
 
     public render() {
         const { props, state } = this;
+        if (state.error) {
+            if (props.errorComponent) {
+                const ErrorComponent = props.errorComponent;
+                return (
+                    <ErrorComponent error={state.error} />
+                );
+            }
+            return null;  
+        }
         if (state.loading) {
             if (props.loadingComponent) {
                 return props.loadingComponent();
             }
-        } else if (state.results) {
+            return null;
+        }
+        if (state.results) {
             return props.children(state.results, this.forecast);
         }
         return null;
@@ -112,14 +121,14 @@ class ForecastEnhancer extends React.Component<ForecastEnhancerProps, ForecastEn
 
     private resolveQuery = async () => {
         const { props } = this;
-        this.setState({ loading: true });
+        this.setState({ loading: true, error: null });
         const acc: ForecastResults = {};
         const list = this.forecast.list(props.by);
         for (let i = 0; i < props.query.length; i++) {
             const item = props.query[i];
             acc[item] = await list[item]() as any;
         }
-        this.setState({ loading: false, results: acc });
+        this.setState({ loading: false, error: null, results: acc });
     }
 }
 
@@ -130,12 +139,7 @@ const weatherEnhancer = <T extends object>(
     expire?: 'never' | number,
 ) => (props: Omit<Omit<T, 'data'>, 'forecast'> & InjectedForecastProps) => (
     <ForecastEnhancer
-        apiKey={props.apiKey}
-        isPro={props.isPro}
-        query={props.query}
-        by={props.by}
-        setup={props.setup}
-        loadingComponent={props.loadingComponent}
+        {...props}
         storage={storage}
         expire={expire}
     >
