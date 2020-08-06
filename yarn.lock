@@ -156,10 +156,10 @@ esprima@^4.0.0:
   resolved "https://registry.yarnpkg.com/esprima/-/esprima-4.0.1.tgz#13b04cdb3e6c5d19df91ab6987a8695619b0aa71"
   integrity sha512-eGuFFw7Upda+g4p+QHvnW0RyTX/SVeJBDM/gCtMARO0cLuT2HcEKnTPvhjV6aGeqrCB/sbNop0Kszm0jsaWU4A==
 
-forecast-query@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/forecast-query/-/forecast-query-1.2.1.tgz#44295011def55e0bdeae7e98e1a1a6a23470be74"
-  integrity sha512-wUrsgOVeGdkwY29+gsYccG/lq6GMxIzE65S18d3NOId/1TyayFWY0H8YzwBd+B1MHUdou9Mm4M5Ewv/67XjFPQ==
+forecast-query@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/forecast-query/-/forecast-query-1.3.1.tgz#1b5fdcf8df601ea1015f21d07dea17eb35679ed3"
+  integrity sha512-BasVPxHzDiLLBwBa5P8Rvj1t0zWXcvuNZI/Tg9LmDMhhxZO/zV6spkDkFB3Bmb3rhIbPYhEz6QtGBEQxcX4rPg==
 
 form-data@^3.0.0:
   version "3.0.0"

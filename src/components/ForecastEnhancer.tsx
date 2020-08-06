@@ -9,17 +9,48 @@ export interface InjectedForecastResults {
     forecast: Forecast;
 }
 
-export interface InjectedForecastProps {
+export interface InjectedForecastPropsCommon {
+    /**
+     * openweathermap api key
+     */
     apiKey: string,
+    /**
+     * What kind of weather information do you want to see?
+     */
     query: Array<keyof ForecastList>,
+    /**
+     * Do you own a pro account?
+     */
     isPro?: boolean,
+    /**
+     * Should the query be listed by hour or by day
+     */
     by?: 'day' | 'hour',
+    /**
+     * Set up your forecast location and dates
+     */
     setup?: (forecast: Forecast) => void,
     loadingComponent?: () => JSX.Element | null,
-    errorComponent?: (props: { error: any }) => JSX.Element | null
+    errorComponent?: (props: { error: any }) => JSX.Element | null,
 }
 
-interface ForecastEnhancerProps extends InjectedForecastProps {
+interface InjectedForecastPropsGeo {
+    geo: true;
+    /**
+     * Update periodically in minutes. This will be set up componentDidMount
+     */
+    updateGeo?: number;
+}
+
+interface InjectedForecastPropsNoGeo {
+    geo?: false;
+}
+
+export type InjectedForecastProps = InjectedForecastPropsCommon & (
+    InjectedForecastPropsGeo | InjectedForecastPropsNoGeo
+);
+
+type ForecastEnhancerProps = InjectedForecastProps & {
     children: (props: ForecastResults, forecast: Forecast) => JSX.Element | null;
     storage: Storage,
     expire?: number | 'never';
@@ -27,13 +58,16 @@ interface ForecastEnhancerProps extends InjectedForecastProps {
 
 interface ForecastEnhancerState {
     loading: boolean;
+    loadingGeo: boolean;
     results: ForecastResults | null;
     error: any | null;
 }
 
 class ForecastEnhancer extends React.Component<ForecastEnhancerProps, ForecastEnhancerState> {
     forecast: Forecast;
+    geoInterval?: number;
     state: ForecastEnhancerState = {
+        loadingGeo: false,
         loading: false,
         results: null,
         error: null,
@@ -58,7 +92,24 @@ class ForecastEnhancer extends React.Component<ForecastEnhancerProps, ForecastEn
         if (props.setup) {
             props.setup(this.forecast);
         }
+        if (props.geo) {
+            this.setState({ loadingGeo: true });
+            await this.forecast.geo();
+            this.setState({ loadingGeo: false });
+            if (props.updateGeo) {
+                this.geoInterval = window.setInterval(async () => {
+                    this.setState({ loadingGeo: true });
+                    await this.forecast.geo();
+                    this.setState({ loadingGeo: false }, this.resolveQuery);
+                }, 1000 * 60 * props.updateGeo);
+            }
+        }
         await this.resolveQuery();
+    }
+    public componentWillUnmount() {
+        if (this.geoInterval !== undefined) {
+            clearInterval(this.geoInterval);
+        }
     }
     public async componentDidUpdate(prevProps: ForecastEnhancerProps) {
         const { props } = this;
@@ -88,7 +139,7 @@ class ForecastEnhancer extends React.Component<ForecastEnhancerProps, ForecastEn
             }
             return null;  
         }
-        if (state.loading) {
+        if (state.loading || state.loadingGeo) {
             if (props.loadingComponent) {
                 return props.loadingComponent();
             }
@@ -130,6 +181,9 @@ class ForecastEnhancer extends React.Component<ForecastEnhancerProps, ForecastEn
 
     private resolveQuery = async () => {
         const { props, state } = this;
+        if (state.loadingGeo) {
+            return;
+        }
         this.setState({ loading: true, error: null });
         const acc: ForecastResults = {};
         const list = this.forecast.list(props.by);

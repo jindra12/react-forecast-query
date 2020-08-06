@@ -1054,10 +1054,10 @@ for-in@^1.0.2:
   resolved "https://registry.yarnpkg.com/for-in/-/for-in-1.0.2.tgz#81068d295a8142ec0ac726c6e2200c30fb6d5e80"
   integrity sha1-gQaNKVqBQuwKxybG4iAMMPttXoA=
 
-forecast-query@^1.2.1:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/forecast-query/-/forecast-query-1.2.2.tgz#f41311266005c023e4406d3ebe596df2bff44d8f"
-  integrity sha512-V3qBTZXLjyBLw131B9+jk1qlUFVxckaMhxa5+xWFZdVIUswiAhIKNVwRZ7qQdlxlOty/zfCniSTm8i9eNDdyqQ==
+forecast-query@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/forecast-query/-/forecast-query-1.3.1.tgz#1b5fdcf8df601ea1015f21d07dea17eb35679ed3"
+  integrity sha512-BasVPxHzDiLLBwBa5P8Rvj1t0zWXcvuNZI/Tg9LmDMhhxZO/zV6spkDkFB3Bmb3rhIbPYhEz6QtGBEQxcX4rPg==
 
 fragment-cache@^0.2.1:
   version "0.2.1"
@@ -2119,9 +2119,9 @@ react-dom@^16.13.1:
     scheduler "^0.19.1"
 
 "react-forecast-query@file:../dist":
-  version "0.1.0"
+  version "0.1.1"
   dependencies:
-    forecast-query "^1.2.1"
+    forecast-query "^1.3.1"
 
 react-is@^16.8.1:
   version "16.13.1"

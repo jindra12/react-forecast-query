@@ -85,6 +85,34 @@ Added error component
 
 Fix error component error reporting
 
+## Changes since 0.2.0
+
+Add support for gps geolocation in browser.
+
+### Example of use
+
+```JSX
+
+<WeatherDisplay 
+    apiKey={state.apiKey}
+    label="Cloudy weather measurements"
+    query={['clouds', 'cloudy']}
+    by="hour"
+    loadingComponent={() => <div>Loading...</div>}
+    errorComponent={props => {
+        console.error(props.error);
+        return <div>Error!</div>
+    }}
+    geo // Try and get geolocation
+    updateGeo={1} // Updates every minute
+    setup={forecast => forecast
+        .at(today, fourDaysFromNow)
+        .units('metric') // No location setup needed
+        .language('cz')}
+/>
+
+```
+
 ## More information
 
 For more information about weather prediction from open weather api please visit: https://www.npmjs.com/package/forecast-query

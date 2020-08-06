@@ -1,6 +1,6 @@
 {
   "name": "react-forecast-query",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Higher order React component delivering weather information from open weather api. Wrapper for forecast-query package.",
   "main": "index.js",
   "repository": "https://github.com/jindra12/react-forecast-query.git",
@@ -47,7 +47,7 @@
     "react-dom": "^16.13.1"
   },
   "dependencies": {
-    "forecast-query": "^1.2.1"
+    "forecast-query": "^1.3.1"
   },
   "devDependencies": {}
 }

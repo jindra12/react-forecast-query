@@ -7,6 +7,10 @@ interface State {
     apiKey: string;
 }
 
+const today = new Date();
+const fourDaysFromNow = new Date();
+fourDaysFromNow.setDate(fourDaysFromNow.getDate() + 4);
+
 class TestWeather extends React.Component<{}, State> {
     state: State = {
         value: '',
@@ -14,9 +18,6 @@ class TestWeather extends React.Component<{}, State> {
     }
     public render() {
         const { state } = this;
-        const today = new Date();
-        const fourDaysFromNow = new Date();
-        fourDaysFromNow.setDate(fourDaysFromNow.getDate() + 4);
         return (
             <div>
                 <input value={state.value} onInput={e => this.setState({ value: (e.target as HTMLInputElement).value })} />
@@ -32,9 +33,10 @@ class TestWeather extends React.Component<{}, State> {
                             console.error(props.error);
                             return <div>Error!</div>
                         }}
+                        geo
+                        updateGeo={1} // Updates every minute
                         setup={forecast => forecast
                             .at(today, fourDaysFromNow)
-                            .around(50.08804, 14.42076)
                             .units('metric')
                             .language('cz')}
                     />
