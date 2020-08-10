@@ -199,7 +199,7 @@ class ForecastEnhancer extends React.Component<ForecastEnhancerProps, ForecastEn
 }
 
 const weatherEnhancer = <T extends object>(
-    Component: (new (props: T & ForecastResults) => JSX.Element | null)
+    Component: (new (props: T & ForecastResults) => React.Component<T & ForecastResults>)
         | ((props: T & ForecastResults) => JSX.Element | null),
     storage: Storage = localStorage,
     expire?: 'never' | number,

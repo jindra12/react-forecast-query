@@ -2119,7 +2119,7 @@ react-dom@^16.13.1:
     scheduler "^0.19.1"
 
 "react-forecast-query@file:../dist":
-  version "0.1.1"
+  version "0.2.0"
   dependencies:
     forecast-query "^1.3.1"
 

@@ -113,6 +113,10 @@ Add support for gps geolocation in browser.
 
 ```
 
+## Changes since 0.2.1
+
+Fixed a bug in typing of enhancer concerning Component class.
+
 ## More information
 
 For more information about weather prediction from open weather api please visit: https://www.npmjs.com/package/forecast-query
